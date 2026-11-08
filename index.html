@@ -236,7 +236,8 @@
         if (enemyDef <= 0) return 1;
         const ratio = atk / enemyDef;
         if (ratio > 2) {
-            return 1 / (0.75 - Math.log(ratio - 2) / 10);
+            // 補正が1未満にならないよう下限を設定 (比率が約2.08になるまでは1、以降は連続的に上昇)
+            return Math.max(1, 1 / (0.75 - Math.log(ratio - 2) / 10));
         }
         return 1;
     }
